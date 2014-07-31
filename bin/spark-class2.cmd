@@ -76,6 +76,9 @@ rem All drivers use SPARK_JAVA_OPTS + SPARK_DRIVER_MEMORY. The repl also uses SP
   if not "x%SPARK_DRIVER_MEMORY%"=="x" set OUR_JAVA_MEM=%SPARK_DRIVER_MEMORY%
 )
 
+rem Add HDInsight componment into SPARK_LIBRARY_PATH
+set SPARK_LIBRARY_PATH=%SPARK_LIBRARY_PATH%;"%HADOOP_HOME%\bin"
+
 rem Set JAVA_OPTS to be able to load native libraries and to set heap size
 set JAVA_OPTS=-XX:MaxPermSize=128m %OUR_JAVA_OPTS% -Djava.library.path=%SPARK_LIBRARY_PATH% -Xms%OUR_JAVA_MEM% -Xmx%OUR_JAVA_MEM%
 rem Attention: when changing the way the JAVA_OPTS are assembled, the change must be reflected in CommandUtils.scala!

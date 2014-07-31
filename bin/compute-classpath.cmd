@@ -46,6 +46,18 @@ if exist "%FWDIR%RELEASE" (
     set ASSEMBLY_JAR=%%d
   )
 )
+rem Adding in HDInsight related jars
+for %%d in ("%HADOOP_HOME%\share\hadoop\common\lib\WindowsAzureETWSink-*.jar") do (
+    set CLASSPATH=%CLASSPATH%;%%d
+)
+
+for %%d in ("%HADOOP_HOME%\share\hadoop\common\lib\microsoft-windowsazure-storage-sdk-*.jar") do (
+    set CLASSPATH=%CLASSPATH%;%%d
+)
+
+for %%d in ("%HADOOP_HOME%\share\hadoop\common\hadoop-common-*.jar") do (
+    set CLASSPATH=%CLASSPATH%;%%d
+)
 
 set CLASSPATH=%CLASSPATH%;%ASSEMBLY_JAR%
 
