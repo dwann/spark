@@ -247,7 +247,7 @@ class SparkContext(config: SparkConf) extends Logging {
 
   // Optionally log Spark events
   private[spark] val eventLogger: Option[EventLoggingListener] = {
-    if (conf.getBoolean("spark.eventLog.enabled", false)) {
+    if (conf.getBoolean("spark.eventLog.enabled", true)) {
       val logger = new EventLoggingListener(appName, conf, hadoopConfiguration)
       logger.start()
       listenerBus.addListener(logger)

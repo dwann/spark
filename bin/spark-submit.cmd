@@ -17,7 +17,10 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 rem
 
-set SPARK_HOME=%~dp0..
+if "%SPARK_HOME%" == "" (
+  set SPARK_HOME=%~dp0..
+)
+
 set ORIG_ARGS=%*
 
 rem Clear the values of all variables used

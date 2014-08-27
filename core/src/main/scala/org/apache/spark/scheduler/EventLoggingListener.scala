@@ -132,7 +132,7 @@ private[spark] class EventLoggingListener(
 }
 
 private[spark] object EventLoggingListener extends Logging {
-  val DEFAULT_LOG_DIR = "/tmp/spark-events"
+  val DEFAULT_LOG_DIR = "wasb:///spark-history"
   val LOG_PREFIX = "EVENT_LOG_"
   val SPARK_VERSION_PREFIX = "SPARK_VERSION_"
   val COMPRESSION_CODEC_PREFIX = "COMPRESSION_CODEC_"

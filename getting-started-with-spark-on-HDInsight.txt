@@ -2,20 +2,19 @@ Under the directoy where Spark is installed:
 
 --- Pi Example:
 
-.\bin\spark-submit --class org.apache.spark.examples.SparkPi --master yarn-cluster --deploy-mode cluster --executor-memory 1G --num-executors 3 .\lib\spark-examples-1.0.2-hadoop2.4.0.jar 100
+.\bin\spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --executor-memory 1G --num-executors 3 .\lib\spark-examples-1.0.2-hadoop2.4.0.jar 100
 
 
 --- JavaPageRank Example:
 
 1) Upload pagerankinput.txt under Spark top directory to /user/{username} on WASB.
-2) .\bin\spark-submit --class org.apache.spark.examples.JavaPageRank --master yarn-cluster --deploy-mode cluster --executor-memory 1G --num-executors 3 .\lib\spark-examples-1.0.2-hadoop2.4.0.jar /user/{username}/pagerankinput.txt 100
+2) .\bin\spark-submit --class org.apache.spark.examples.JavaPageRank --master yarn-cluster --deploy-mode cluster --executor-memory 1G --num-executors 3 .\lib\spark-examples-1.0.2-hadoop2.4.0.jar /user/{username}/pagerankinput.txt 10
 
 
 --- Interactive Shell Example:
 
 1) Upload wordcountinput.txt under Spark top directory to /user/{username} on WASB.
 2) .\bin\spark-shell and issue the following on the prompt:
-      scala> val textFile = sc.textFile("/user/{username}/wordcountinput.txt")
       scala> val file = sc.textFile("/user/{username}/wordcountinput.txt")
       scala> val counts = file.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
       scala> counts.toArray().foreach(println)

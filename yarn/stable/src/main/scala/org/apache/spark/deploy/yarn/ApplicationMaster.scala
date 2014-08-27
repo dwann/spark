@@ -36,7 +36,7 @@ import org.apache.hadoop.yarn.conf.YarnConfiguration
 import org.apache.hadoop.yarn.ipc.YarnRPC
 import org.apache.hadoop.yarn.util.{ConverterUtils, Records}
 import org.apache.hadoop.yarn.webapp.util.WebAppUtils
-
+import org.apache.commons.lang.exception.ExceptionUtils
 import org.apache.spark.{Logging, SecurityManager, SparkConf, SparkContext}
 import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.util.Utils
@@ -188,6 +188,13 @@ class ApplicationMaster(args: ApplicationMasterArguments, conf: Configuration,
           // userThread will stop here unless it has uncaught exception thrown out
           // It need shutdown hook to set SUCCEEDED
           successed = true
+        } catch  {
+            case e: java.lang.reflect.InvocationTargetException => {
+                // This is the temporary fix to get around with the no such method error in Azure metrics system. This is fixed in later versions of Hadoop.
+                if (ExceptionUtils.getStackTrace(e).contains("java.lang.NoSuchMethodError: org.apache.hadoop.metrics2.impl.MetricsSystemImpl.unregisterSource")) {                 
+                    successed = true
+                }
+            }
         } finally {
           logDebug("finishing main")
           isLastAMRetry = true

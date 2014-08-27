@@ -46,7 +46,7 @@ object SparkBuild extends Build {
 
   val DEFAULT_YARN = true
 
-  val DEFAULT_HIVE = false
+  val DEFAULT_HIVE = true
 
   // HBase version; set as appropriate.
   val HBASE_VERSION = "0.94.6"
